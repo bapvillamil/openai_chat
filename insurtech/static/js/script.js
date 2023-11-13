@@ -40,9 +40,6 @@ document.addEventListener('click', function (e) {
     }
 });
 
-
-
-
 // CHATBOX MESSAGE
 const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
 const chatboxMessageWrapper = document.querySelector('.chatbox-message-content');
@@ -64,7 +61,7 @@ chatboxForm.addEventListener('submit', function (e) {
             body: JSON.stringify({ userMessage }),
         })
         .then(response => {
-            if (response.status === 200) {
+            if (response.ok) {
                 return response.json();
             } else {
                 return Promise.reject('No Model found');
@@ -72,7 +69,7 @@ chatboxForm.addEventListener('submit', function (e) {
         })
         .then(data => {
             console.log('Data received from the API:', data);
-
+        
             // Append the user's message to the chatbox
             const userMessageElement = `
                 <div class="chatbox-message-item sent">
@@ -82,9 +79,9 @@ chatboxForm.addEventListener('submit', function (e) {
                     <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
                 </div>
             `;
-
+        
             chatboxMessageWrapper.insertAdjacentHTML('beforeend', userMessageElement);
-
+        
             // Append the AI's response to the chatbox
             const aiResponseElement = `
                 <div class="chatbox-message-item received">
@@ -95,9 +92,10 @@ chatboxForm.addEventListener('submit', function (e) {
                 </div>
             `;
             chatboxMessageWrapper.insertAdjacentHTML('beforeend', aiResponseElement);
-
+        
             scrollBottom();
         })
+        
         .catch(error => {
             console.error('Error:', error);
             const errorMessage = `

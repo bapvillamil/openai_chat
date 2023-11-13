@@ -53,13 +53,21 @@
                         <span class="chatbox-message-item-time">08:30</span>
                     </div> -->
                 </div>
-                <div class="chatbox-message-bottom">
+                {% comment %} <div class="chatbox-message-bottom">
                     <form action="#" class="chatbox-message-form">
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                         <textarea rows="1" placeholder="Type message..." class="chatbox-message-input"></textarea>
                         <button type="submit" class="chatbox-message-submit"><i class='bx bx-send' ></i></button>
                     </form>
+                </div> {% endcomment %}
+                <div class="chatbox-message-bottom">
+                    <form action="{% url 'ai_response' %}" method="post" class="chatbox-message-form">
+                        {% csrf_token %}
+                        <textarea name="input_data" rows="1" placeholder="Type message..." class="chatbox-message-input"></textarea>
+                        <button type="submit" class="chatbox-message-submit"><i class='bx bx-send'></i></button>
+                    </form>
                 </div>
+                
             </div>
         </div>
         <script src="{% static 'js/script.js' %}"></script>
