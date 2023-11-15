@@ -50,15 +50,16 @@ chatboxForm.addEventListener('submit', function (e) {
 
     if (isValid(textarea.value)) {
         const userMessage = textarea.value; // Get the user's message
+        console.log('User Message:', userMessage)
 
         // Send the user's message to the server
         fetch('/ai-response/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken, // Include the CSRF token in the headers
+                'X-CSRFToken': csrfToken,
             },
-            body: JSON.stringify({ userMessage }),
+            body: JSON.stringify({ userMessage: user_message }), // Ensure userMessage is sent as payload
         })
         .then(response => {
             if (response.ok) {
@@ -95,7 +96,6 @@ chatboxForm.addEventListener('submit', function (e) {
         
             scrollBottom();
         })
-        
         .catch(error => {
             console.error('Error:', error);
             const errorMessage = `
@@ -109,6 +109,7 @@ chatboxForm.addEventListener('submit', function (e) {
             chatboxMessageWrapper.insertAdjacentHTML('beforeend', errorMessage);
             scrollBottom();
         });
+
 
         // Clear the input field and focus
         textarea.value = '';
