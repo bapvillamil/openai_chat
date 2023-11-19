@@ -12,8 +12,11 @@
     <body>
         <div class="container">
             <h1>Insurtech Insurance Homepage</h1>
+        </div>
+        <div>
+            <p>Hello hello hello hello</p>
         </div>       
-        <div class="chatbox-wrapper">
+        <div class="chatbox-wrapper" title="Chat with our AI">
             <div class="chatbox-toggle">
                 <i class='bx bx-message-dots'></i>
             </div>
@@ -39,27 +42,8 @@
                     </div>
                 </div>
                 <div class="chatbox-message-content">
-                    <h4 class="chatbox-message-no-message">You don't have message yet!</h4>
-                    <!-- <div class="chatbox-message-item sent">
-                        <span class="chatbox-message-item-text">
-                            Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Quod, fugiat?
-                        </span>
-                        <span class="chatbox-message-item-time">08:30</span>
-                    </div>
-                    <div class="chatbox-message-item received">
-                        <span class="chatbox-message-item-text">
-                            Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Quod, fugiat?
-                        </span>
-                        <span class="chatbox-message-item-time">08:30</span>
-                    </div> -->
+                    <h4 class="chatbox-message-no-message">Hi! How may I assist you?</h4>
                 </div>
-                {% comment %} <div class="chatbox-message-bottom">
-                    <form action="#" class="chatbox-message-form">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <textarea rows="1" placeholder="Type message..." class="chatbox-message-input"></textarea>
-                        <button type="submit" class="chatbox-message-submit"><i class='bx bx-send' ></i></button>
-                    </form>
-                </div> {% endcomment %}
                 <div class="chatbox-message-bottom">
                     <form action="{% url 'ai_response' %}" method="post" class="chatbox-message-form" enctype="multipart/form-data">
                         {% csrf_token %}

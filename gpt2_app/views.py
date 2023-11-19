@@ -14,7 +14,6 @@ import tensorflow as tf
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import copy
 
-
 # Create your views here.
 
 

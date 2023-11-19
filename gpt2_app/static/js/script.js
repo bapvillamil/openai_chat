@@ -17,6 +17,8 @@ textarea.addEventListener('input', function () {
     }
 });
 
+// Your existing JavaScript code
+
 // TOGGLE CHATBOX
 const chatboxToggle = document.querySelector('.chatbox-toggle');
 const chatboxMessage = document.querySelector('.chatbox-message-wrapper');
@@ -25,6 +27,7 @@ chatboxToggle.addEventListener('click', function () {
     console.log('Toggle button clicked');
     chatboxMessage.classList.toggle('show');
 });
+
 
 // DROPDOWN TOGGLE
 const dropdownToggle = document.querySelector('.chatbox-message-dropdown-toggle');
@@ -50,7 +53,16 @@ chatboxForm.addEventListener('submit', function (e) {
 
     if (isValid(textarea.value)) {
         const userMessage = textarea.value; // Get the user's message
-        console.log('User Message:', userMessage);
+
+        // Display user's message immediately
+        displaySentMessage(userMessage);
+        displayTypingIndicator(); // Show typing indicator for AI response
+
+        // Clear the input field and focus
+        textarea.value = '';
+        textarea.rows = 1;
+        textarea.focus();
+        chatboxNoMessage.style.display = 'none';
 
         // Send the user's message to the server
         fetch('/ai-response/', {
@@ -69,55 +81,64 @@ chatboxForm.addEventListener('submit', function (e) {
             }
         })
         .then(data => {
-            // Append the user's message to the chatbox
-            const userMessageElement = `
-                <div class="chatbox-message-item sent">
-                    <span class="chatbox-message-item-text">
-                        ${userMessage}
-                    </span>
-                    <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
-                </div>
-            `;
-        
-            chatboxMessageWrapper.insertAdjacentHTML('beforeend', userMessageElement);
-        
-            // Append the AI's response to the chatbox (as plain text)
-            const aiResponseElement = `
-                <div class="chatbox-message-item received">
-                    <span class="chatbox-message-item-text">
-                        ${data}
-                    </span>
-                    <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
-                </div>
-            `;
-        
-            chatboxMessageWrapper.insertAdjacentHTML('beforeend', aiResponseElement);
-        
-            scrollBottom();
+            // Hide typing indicator and display AI's response after receiving it from the server
+            hideTypingIndicator(); // Hide the "AI is typing..." message
+            displayReceivedMessage(data);
+            scrollBottom(); // Scroll to the bottom after messages are added
         })
         .catch(error => {
             console.error('Error:', error);
-            const errorMessage = `
-                <div class="chatbox-message-item received">
-                    <span class="chatbox-message-item-text">
-                        No Model found
-                    </span>
-                    <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
-                </div>
-            `;
-        
-            chatboxMessageWrapper.insertAdjacentHTML('beforeend', errorMessage);
-            scrollBottom();
+            // Display an error message if AI response fails
+            hideTypingIndicator();
+            displayReceivedMessage('No Model found');
+            scrollBottom(); // Scroll to the bottom even if there's an error
         });
-
-
-        // Clear the input field and focus
-        textarea.value = '';
-        textarea.rows = 1;
-        textarea.focus();
-        chatboxNoMessage.style.display = 'none';
     }
 });
+
+function displaySentMessage(message) {
+    const userMessageElement = `
+        <div class="chatbox-message-item sent">
+            <span class="chatbox-message-item-text">
+                ${message}
+            </span>
+            <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
+        </div>
+    `;
+
+    chatboxMessageWrapper.insertAdjacentHTML('beforeend', userMessageElement);
+}
+
+function displayReceivedMessage(message) {
+    const aiResponseElement = `
+        <div class="chatbox-message-item received">
+            <span class="chatbox-message-item-text">
+                ${message}
+            </span>
+            <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
+        </div>
+    `;
+
+    chatboxMessageWrapper.insertAdjacentHTML('beforeend', aiResponseElement);
+}
+
+function displayTypingIndicator() {
+    const typingIndicator = `
+        <div class="chatbox-message-item received typing-indicator">
+            <span class="chatbox-message-item-text typing-indicator-text">AI is typing...</span>
+        </div>
+    `;
+
+    chatboxMessageWrapper.insertAdjacentHTML('beforeend', typingIndicator);
+}
+
+
+function hideTypingIndicator() {
+    const typingIndicator = document.querySelector('.chatbox-message-item.received.typing-indicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
 
 function addZero(num) {
     return num < 10 ? '0' + num : num;
