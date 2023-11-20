@@ -110,9 +110,9 @@ function submitForm() {
 function displaySentMessage(message) {
     const userMessageElement = `
         <div class="chatbox-message-item sent">
-            <span class="chatbox-message-item-text">
+            <div class="chatbox-message-item-text">
                 ${message}
-            </span>
+            </div>
             <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
         </div>
     `;
@@ -123,15 +123,18 @@ function displaySentMessage(message) {
 function displayReceivedMessage(message) {
     const aiResponseElement = `
         <div class="chatbox-message-item received">
-            <span class="chatbox-message-item-text">
-                ${message}
-            </span>
-            <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
+            <div class="bot">
+                <div class="chatbox-message-item-text">
+                    ${message}
+                </div>
+                <span class="chatbox-message-item-time">${addZero(today.getHours())}:${addZero(today.getMinutes())}</span>
+            </div>
         </div>
     `;
 
     chatboxMessageWrapper.insertAdjacentHTML('beforeend', aiResponseElement);
 }
+
 
 function displayTypingIndicator() {
     const typingIndicator = `

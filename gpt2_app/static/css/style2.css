@@ -92,14 +92,23 @@ select {
 }
 
 /* GLOBAL STYLES */
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: flex-start; /* Center content vertically */
+  height: 100vh; /* Adjust the height as needed */
+}
+
 .container {
   background-size: cover; /* Adjust to your layout needs */
   background-position: center; /* Center the background image */
-  text-align: center; /* Center the text horizontally and vertically */
-  height: 300px; /* Set the desired height for the container */
+  text-align: center; /* Center the text horizontally */
+  height: 120px; /* Set the desired height for the container */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 20px; /* Add some space between containers */
 }
 
 .container h1 {
@@ -107,6 +116,8 @@ select {
   background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background to make text more readable */
   padding: 20px; /* Add padding around the text for better visibility */
   margin: 0; /* Remove default margin from the h1 element */
+  width: 100vw;
+  text-align: center;
 }
 
 
@@ -332,3 +343,54 @@ select {
   font-size: 12px;
 }
 /* CHATBOX */
+
+
+.link-container {
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.5);
+  width: 50vw;
+  text-align: center;
+}
+
+.link-item {
+  color: white;
+  padding: 12px;
+  margin-right: 50px;
+  text-decoration: none;
+}
+
+.link-item:last-child {
+  margin-right: 0;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+
+.photo-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 50vw;
+  margin: 0 auto;
+}
+
+.photo-container a {
+  flex: 0 0 calc(20% - 10px);
+  margin-right: 20px;
+}
+
+.photo-container img {
+  width: 83%; /* Ensure image width is same with link-container background width */
+  height: auto;
+  border-radius: 30px;
+}
+
+.word-container {
+  color: rgb(56, 53, 53);
+  text-align: left;
+  margin-bottom: 20px;
+}
