@@ -11,9 +11,25 @@
         <title>Products</title>
     </head>
     <body>
-        <div class="container">
-            <h1>Products</h1>
+        <div class="main-wrapper">
+            <div class="container">
+                <h1>Products</h1>
+            </div>
+
+            <div class="center-container">
+                <div class="link-container">
+                    <a href="{% url 'chat' %}" class="link-item">Home</a>
+                    <a href="{% url 'we_do' %}" class="link-item">We Do</a>
+                    <a href="{% url 'products' %}" class="link-item">Products</a>
+                    <a href="{% url 'claims_services' %}" class="link-item">Claims and Services</a>
+                    <a href="{% url 'work_with_us' %}" class="link-item">Work with Us</a>
+                    <a href="{% url 'about_us' %}" class="link-item">About Us</a>
+                </div>
+            </div>
         </div>
+
+
+
 
         <div class="chatbox-wrapper" title="Chat with our AI">
             <div class="chatbox-toggle">

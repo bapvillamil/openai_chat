@@ -353,15 +353,24 @@ select {
 }
 
 .link-item {
+  position: relative;
+  display: inline-block;
   color: white;
   padding: 12px;
-  margin-right: 50px;
+  margin-right: 50px; /* Adjust the spacing between items */
   text-decoration: none;
 }
 
-.link-item:last-child {
-  margin-right: 0;
+.link-item::after {
+  content: "|"; /* Use pseudo-element to add the pipe character */
+  position: absolute;
+  right: -25px; /* Adjust the position of the pipe character */
 }
+
+.link-item:last-child::after {
+  content: none; /* Hide the pipe character after the last link item */
+}
+
 
 .center-container {
   display: flex;
