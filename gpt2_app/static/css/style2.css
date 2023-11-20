@@ -261,6 +261,8 @@ select {
   display: flex;
   flex-direction: column;
   grid-row-gap: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .chatbox-message-item {
@@ -304,7 +306,6 @@ select {
   background: transparent;
   outline: none;
   border: none;
-  resize: none;
   scrollbar-width: none;
 }
 

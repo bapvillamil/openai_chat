@@ -17,6 +17,14 @@ textarea.addEventListener('input', function () {
     }
 });
 
+// Listen for "Enter" key press
+textarea.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault(); // Prevents a newline character from being inserted
+        submitForm(); // Call a function to handle form submission
+    }
+});
+
 // Your existing JavaScript code
 
 // TOGGLE CHATBOX
@@ -27,7 +35,6 @@ chatboxToggle.addEventListener('click', function () {
     console.log('Toggle button clicked');
     chatboxMessage.classList.toggle('show');
 });
-
 
 // DROPDOWN TOGGLE
 const dropdownToggle = document.querySelector('.chatbox-message-dropdown-toggle');
@@ -50,10 +57,12 @@ const chatboxNoMessage = document.querySelector('.chatbox-message-no-message');
 
 chatboxForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    submitForm();
+});
 
+function submitForm() {
     if (isValid(textarea.value)) {
         const userMessage = textarea.value; // Get the user's message
-
         // Display user's message immediately
         displaySentMessage(userMessage);
         displayTypingIndicator(); // Show typing indicator for AI response
@@ -94,7 +103,9 @@ chatboxForm.addEventListener('submit', function (e) {
             scrollBottom(); // Scroll to the bottom even if there's an error
         });
     }
-});
+}
+
+
 
 function displaySentMessage(message) {
     const userMessageElement = `

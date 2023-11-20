@@ -33,7 +33,8 @@ def infer(model, input):
                             num_return_sequences=1,
                             pad_token_id=model.config.eos_token_id,
                             top_k=50,
-                            top_p=0.95)
+                            #top_p=0.95) 
+    )
     output = tokenizer.decode(output[0], skip_special_tokens=True)
     return output
 
@@ -50,7 +51,7 @@ def ai_response(request):
     
     model_path = 'model/gpt2_qa_bot.pth'
     #model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gpt2_qa_bot.pth')
-    print('Model Path:', model_path)
+    
 
     # Check if the model file exists
     if not os.path.exists(model_path):
@@ -63,20 +64,14 @@ def ai_response(request):
 
             # Load the state dictionary
             state_dict = torch.load(model_path, map_location=device)
-            
             model_response = infer(gpt2model, user_message)
             
+            
             # Extract the first response from model_response
-            first_response = model_response.split('<BOT>:')[1].strip()  # Assuming the first response starts after '<BOT>:'
-            
-            response = '<BOT>:' + first_response
-            
-            print('*' * 100)
+            first_response = model_response.split('<BOT>:')[1].strip().replace('-', '').replace('~', '')
+            #first_response = first_response.replace('-', '')
+            response = '<BOT>' + first_response
             print(f"Model Response: {response}")
-            print(f'Type: {type(response)}')
-            print('*' * 100)
-            
-            # Return the first response as final_response
             return HttpResponse(response)
 
         except Exception as e:
