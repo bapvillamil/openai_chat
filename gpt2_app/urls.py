@@ -20,4 +20,9 @@ from . import views
 urlpatterns = [
     path('', views.chat, name='chat'),
     path('ai-response/', views.ai_response, name='ai_response'),
+    path('we-do/', views.we_do_page, name='we_do'),
+    path('products/', views.products_page, name='products'),
+    path('claims-and-services/', views.claims_services_page, name='claims_services'),
+    path('work-with-us/', views.work_with_us_page, name='work_with_us'),
+    path('about-us/', views.about_us_page, name='about_us'),
 ]

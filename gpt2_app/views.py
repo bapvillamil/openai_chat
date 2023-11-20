@@ -16,6 +16,21 @@ import copy
 
 # Create your views here.
 
+def we_do_page(request):
+    return render(request, 'we_do.html')
+
+def products_page(request):
+    return render(request, 'products.html')
+
+def claims_services_page(request):
+    return render(request, 'claims.html')
+
+def work_with_us_page(request):
+    return render(request, 'work.html')
+
+def about_us_page(request):
+    return render(request, 'about.html')
+
 
 device = torch.device('cpu')
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
